@@ -10,39 +10,31 @@
   min-height: 100vh;
   font-family: "Josefin Sans", sans-serif;
 }
-
 .app.dark {
   background-color: hsl(235, 21%, 11%);
   color: white;
 }
-
 .app.light {
   background-color: white;
   color: white;
 }
-
 .app a {
   text-decoration: none;
 }
-
 .app .toggle img {
   display: none;
 }
-
 .app.dark .toggle .sun {
   display: block;
 }
-
 .app.light .toggle .moon {
   display: block;
 }
-
 button {
   background: transparent;
   border: none;
   cursor: pointer;
 }
-
 .mb-50 {
   margin-bottom: 50px;
 }
@@ -55,7 +47,6 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 15px;
 }
-
 .background-image {
   height: 30vh;
   background-size: cover;
@@ -66,26 +57,21 @@ h1 {
   left: 0;
   width: 100%;
 }
-
 .app.dark .background-image {
   background-image: url(../public/images/bg-desktop-dark.jpg);
 }
-
 .app.light .background-image {
   background-image: url(../public/images/bg-desktop-light.jpg);
 }
-
 .row {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 30px;
 }
-
 .space-between {
   justify-content: space-between;
 }
-
 .container {
   width: 80%;
   max-width: 550px;
@@ -94,7 +80,6 @@ h1 {
   z-index: 1;
   padding-top: 10vh;
 }
-
 .input-container {
   border-radius: 5px;
 }
@@ -108,7 +93,6 @@ h1 {
   color: hsl(234, 39%, 85%);
   background-color: hsl(231.82deg 22.92% 18.82%);
 }
-
 .app.light .todo-container {
   color: black;
   background-color: white;
@@ -119,44 +103,35 @@ h1 {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
-
 .todos-stats.mobile {
   display: none;
 }
-
 .todos-stats.mobile .filter {
   text-align: center;
 }
-
 @media (max-width: 600px) {
   .todos-stats.desktop {
     display: none;
   }
-
   .todos-stats.mobile {
     display: block;
   }
 }
-
 .todos-stats,
 .todos-stats button {
   font-size: 16px;
 }
-
 .app.dark .todos-stats,
 .app.dark .todos-stats button {
   color: rgb(83 86 108);
 }
-
 .app.light .todos-stats,
 .app.light .todos-stats button {
   color: hsl(240deg 5.56% 57.65%);
 }
-
 .todos-stats .filter button:nth-child(2) {
   padding: 0 20px;
 }
-
 .todos-stats .filter button.active {
   color: hsl(220, 98%, 61%);
 }
@@ -165,15 +140,12 @@ h1 {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-
 .app.light .todos {
   box-shadow: 0px 60px 50px -10px hsl(252deg 7.69% 87.25%);
 }
-
 .todos .todo-container {
   border-bottom: 1px solid hsl(231.82deg 16.67% 25.88%);
 }
-
 input {
   width: 100%;
   background: transparent;
@@ -183,12 +155,10 @@ input {
   color: hsl(234, 39%, 85%);
   caret-color: hsl(220, 98%, 61%);
 }
-
 .todo {
   display: flex;
   justify-content: space-between;
 }
-
 .check {
   width: 30px;
   height: 30px;
@@ -204,11 +174,9 @@ input {
   text-decoration: line-through;
   color: hsl(232.17deg 13.61% 33.14%);
 }
-
 .app.light .todo.completed p {
   color: hsl(252deg 6.02% 83.73%);
 }
-
 .todo.completed button.check {
   background-image: url("../public/images/icon-check.svg"),
     linear-gradient(45deg, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
