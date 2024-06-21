@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+// import TodoList from "./TodoList";
+import "./styles.css";
+import { useState } from "react";
+let initialTodos = [
+  { id: 1, todo: "Complete Online Javascript Course", completed: true },
+  { id: 2, todo: "Jog around the park 3x", completed: false },
+  { id: 3, todo: "10 minutes meditation", completed: false },
+  { id: 4, todo: "Read for 1 hour", completed: false },
+  { id: 5, todo: "Pick up grodceries", completed: false },
+  { id: 6, todo: "Complete todo app on frontend mentor", completed: false },
+];
+export default function App() {
+  const [theme, setTheme] = useState(true); // true for dark theme false for light theme
+  function toggleHandler() {
+    setTheme(!theme);
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className={`${theme ? "dark" : "light"} app`}>
+      <div className="background-image"></div>
+      <TodoList todos={initialTodos} onToggle={toggleHandler} />
+    </div>
+  );
 }
-
-export default App
