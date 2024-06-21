@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 
 // Define the types for the todo item and actions
 export interface Todo {
@@ -14,10 +14,11 @@ interface State {
 
 type Action =
   | { type: "ADD_TODO"; payload: Todo }
-  | { type: "TOGGLE_TODO"; payload: Todo }
+  | { type: "TOGGLE_TODO"; payload: { id: string } }
   | { type: "DELETE_TODO"; payload: { id: string } }
   | { type: "CLEAR_COMPLETED" }
-  | { type: "SET_FILTER"; payload: "ALL" | "COMPLETED" | "ACTIVE" };
+  | { type: "SET_FILTER"; payload: "ALL" | "COMPLETED" | "ACTIVE" }
+  | { type: "SET_TODOS"; payload: Todo[] };
 
 // Define the initial state for the reducer
 const initialState: State = {
@@ -57,21 +58,38 @@ function todoReducer(state: State, action: Action): State {
         ...state,
         filter: action.payload,
       };
+    case "SET_TODOS":
+      return {
+        ...state,
+        todos: action.payload,
+      };
     default:
       return state;
   }
 }
 
 interface TodoListProps {
-  todos: Todo[];
   onToggle: () => void;
 }
 
-export default function TodoList({ todos, onToggle }: TodoListProps) {
-  const [state, dispatch] = useReducer(todoReducer, { ...initialState, todos });
+export default function TodoList({ onToggle }: TodoListProps) {
+  const [state, dispatch] = useReducer(
+    todoReducer,
+    initialState,
+    (initial) => {
+      const storedTodos = localStorage.getItem("todos");
+      return storedTodos ? { ...initial, todos: JSON.parse(storedTodos) } : initial;
+    }
+  );
+
   const [todoDescription, setTodoDescription] = useState("");
 
   const { todos: todoList, filter } = state;
+
+  // Save todos to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todoList));
+  }, [todoList]);
 
   const shownList = todoList.filter((todo) => {
     switch (filter) {
@@ -96,8 +114,8 @@ export default function TodoList({ todos, onToggle }: TodoListProps) {
     dispatch({ type: "ADD_TODO", payload: newTodo });
   }
 
-  function handleCheck(todo: Todo) {
-    dispatch({ type: "TOGGLE_TODO", payload: todo });
+  function handleCheck(id: string) {
+    dispatch({ type: "TOGGLE_TODO", payload: { id } });
   }
 
   function handleDelete(id: string) {
@@ -154,7 +172,7 @@ export default function TodoList({ todos, onToggle }: TodoListProps) {
 
 interface TodoProps {
   todo: Todo;
-  onCheck: (todo: Todo) => void;
+  onCheck: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
@@ -162,7 +180,7 @@ function Todo({ todo, onCheck, onDelete }: TodoProps) {
   return (
     <div className={`${todo.completed ? "completed" : ""} todo todo-container`}>
       <div className="row">
-        <button className="check" onClick={() => onCheck(todo)}></button>
+        <button className="check" onClick={() => onCheck(todo.id)}></button>
         <p className="title">{todo.todo}</p>
       </div>
       <button className="cancel" onClick={() => onDelete(todo.id)}>
