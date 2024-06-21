@@ -20,7 +20,7 @@ export default function App() {
   return (
     <div className={`${theme ? "dark" : "light"} app`}>
       <div className="background-image"></div>
-      <TodoList todos={initialTodos} onToggle={toggleHandler} />
+      <TodoList  onToggle={toggleHandler} />
     </div>
   );
 }
