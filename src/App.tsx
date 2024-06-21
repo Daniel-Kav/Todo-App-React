@@ -1,12 +1,13 @@
-// import TodoList from "./TodoList";
-import "./styles.css";
+import TodoList from "./components/TodoList";
+import "./App.css";
 import { useState } from "react";
+import { Todo } from "./components/TodoList";
 
-let initialTodos = [
-  { id: 1, todo: "Buy groceries", completed: false },
-  { id: 2, todo: "Clean the house", completed: false },
-  { id: 3, todo: "Prepare dinner", completed: false },
-  { id: 4, todo: "Read a book", completed: false },
+let initialTodos: Todo[] = [
+  { id: "1", todo: "Buy groceries", completed: false },
+  { id: "2", todo: "Clean the house", completed: false },
+  { id: "3", todo: "Prepare dinner", completed: false },
+  { id: "4", todo: "Read a book", completed: false },
 ];
 
 export default function App() {
@@ -19,7 +20,7 @@ export default function App() {
   return (
     <div className={`${theme ? "dark" : "light"} app`}>
       <div className="background-image"></div>
-      {/* <TodoList todos={initialTodos} onToggle={toggleHandler} /> */}
+      <TodoList todos={initialTodos} onToggle={toggleHandler} />
     </div>
   );
 }
