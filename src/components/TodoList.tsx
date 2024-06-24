@@ -9,8 +9,6 @@ export interface Todo {
   completed: boolean;
 }
 
-
-
 // Define the initial state for the reducer
 const initialState: State = {
   todos: [],
@@ -50,6 +48,9 @@ export default function TodoList({ onToggle }: TodoListProps) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!todoDescription.trim()) {
+      return;
+    }
     const newTodo: Todo = {
       id: crypto.randomUUID(),
       todo: todoDescription,
@@ -80,8 +81,8 @@ export default function TodoList({ onToggle }: TodoListProps) {
       <div className="row space-between mb-50">
         <h1>Todo</h1>
         <button className="toggle" onClick={onToggle}>
-          <img className="sun" src="images/icon-sun.svg" alt="" />
-          <img className="moon" src="images/icon-moon.svg" alt="" />
+          <img className="sun" src="images/icon-sun.svg" alt="Sun" />
+          <img className="moon" src="images/icon-moon.svg" alt="Moon" />
         </button>
       </div>
       <form
