@@ -1,4 +1,6 @@
 import { useReducer, useState, useEffect } from "react";
+import useLocalStorage from "../Hooks/useLocalStorage";
+import todoReducer, { State } from "../Reducers/todoReducer";
 
 // Define the types for the todo item and actions
 export interface Todo {
@@ -7,18 +9,7 @@ export interface Todo {
   completed: boolean;
 }
 
-interface State {
-  todos: Todo[];
-  filter: "ALL" | "COMPLETED" | "ACTIVE";
-}
 
-type Action =
-  | { type: "ADD_TODO"; payload: Todo }
-  | { type: "TOGGLE_TODO"; payload: { id: string } }
-  | { type: "DELETE_TODO"; payload: { id: string } }
-  | { type: "CLEAR_COMPLETED" }
-  | { type: "SET_FILTER"; payload: "ALL" | "COMPLETED" | "ACTIVE" }
-  | { type: "SET_TODOS"; payload: Todo[] };
 
 // Define the initial state for the reducer
 const initialState: State = {
@@ -26,69 +17,23 @@ const initialState: State = {
   filter: "ALL",
 };
 
-// Define the reducer function
-function todoReducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "ADD_TODO":
-      return {
-        ...state,
-        todos: [...state.todos, action.payload],
-      };
-    case "TOGGLE_TODO":
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === action.payload.id
-            ? { ...todo, completed: !todo.completed }
-            : todo
-        ),
-      };
-    case "DELETE_TODO":
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== action.payload.id),
-      };
-    case "CLEAR_COMPLETED":
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => !todo.completed),
-      };
-    case "SET_FILTER":
-      return {
-        ...state,
-        filter: action.payload,
-      };
-    case "SET_TODOS":
-      return {
-        ...state,
-        todos: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
 interface TodoListProps {
   onToggle: () => void;
 }
 
 export default function TodoList({ onToggle }: TodoListProps) {
-  const [state, dispatch] = useReducer(
-    todoReducer,
-    initialState,
-    (initial) => {
-      const storedTodos = localStorage.getItem("todos");
-      return storedTodos ? { ...initial, todos: JSON.parse(storedTodos) } : initial;
-    }
-  );
-
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+  const [storedTodos, setStoredTodos] = useLocalStorage<Todo[]>("todos", []);
   const [todoDescription, setTodoDescription] = useState("");
 
   const { todos: todoList, filter } = state;
 
-  // Save todos to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todoList));
+    dispatch({ type: "SET_TODOS", payload: storedTodos });
+  }, []);
+
+  useEffect(() => {
+    setStoredTodos(todoList);
   }, [todoList]);
 
   const shownList = todoList.filter((todo) => {
