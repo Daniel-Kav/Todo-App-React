@@ -1,0 +1,30 @@
+<svg
+    width="400" height="400" viewBox="0 0 400 400"
+    xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="400" height="400" fill="#333" />
+
+    <!-- Circular Text "DANTY" -->
+    <circle cx="200" cy="150" r="100" fill="none" stroke="none" />
+    <text x="50%" y="50%" text-anchor="middle" fill="#FF0000" font-family="Arial" font-size="24" dy=".3em">
+        <textPath href="#circle" startOffset="0">
+            DANTY DANTY DANTY DANTY
+        </textPath>
+    </text>
+
+    <!-- Web Page Icon -->
+    <rect x="160" y="140" width="80" height="60" fill="none" stroke="#FF0000" stroke-width="2" />
+    <rect x="162" y="142" width="76" height="56" fill="#333" />
+    <circle cx="168" cy="148" r="2" fill="#FF0000" />
+    <line x1="170" y1="148" x2="230" y2="148" stroke="#FF0000" stroke-width="2" />
+    <line x1="170" y1="158" x2="230" y2="158" stroke="#FF0000" stroke-width="2" />
+    <line x1="170" y1="168" x2="230" y2="168" stroke="#FF0000" stroke-width="2" />
+
+    <!-- Bottom Text "DANTY tech" -->
+    <text x="50%" y="350" text-anchor="middle" fill="#FF0000" font-family="Arial" font-size="36" font-weight="bold">
+        DANTY
+    </text>
+    <text x="50%" y="380" text-anchor="middle" fill="#FF0000" font-family="Arial" font-size="24">
+        tech
+    </text>
+</svg>
